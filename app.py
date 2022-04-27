@@ -6,7 +6,7 @@ r = requests.get('https://accessmonitor.acessibilidade.gov.pt/results/http:%2F%2
 
 y = r.text
 
-f = open("home.html", "a")
+f = open("home.html", "w")
 f.write(y)
 f.close()
 webbrowser.open('C:/Users/aitor/Desktop/SGTA_Scrapping/home.html')
