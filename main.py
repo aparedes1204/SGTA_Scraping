@@ -99,7 +99,7 @@ def accessMonitorAnalisis(driver, address):
         criterias = error.find_element(by=By.XPATH, value="./following-sibling::td").find_elements(by=By.TAG_NAME, value="li")
         for cr in criterias:
             cr_p = cr.text[::-1].split(" ", 5)[5][::-1].replace("Success criteria ", "").replace("Level ", "")
-            errors_PC[cr_p.replace(" ", f" {criteria_dic[ cr_p.split()[0]]} ")] = locations if locations is not None else []
+            errors_PC[cr_p.replace(" ", f" {criteria_dic[ cr_p.split()[0]]} ")] = locations if locations else []
 
     warnings = driver.find_elements(by=By.CLASS_NAME, value="rowwar")
     warnings_PC = {}
@@ -111,7 +111,7 @@ def accessMonitorAnalisis(driver, address):
         criterias = warning.find_element(by=By.XPATH, value="./following-sibling::td").find_elements(by=By.TAG_NAME, value="li")
         for cr in criterias:
             cr_p = cr.text[::-1].split(" ", 5)[5][::-1].replace("Success criteria ", "").replace("Level ", "")
-            warnings_PC[cr_p.replace(" ", f" {criteria_dic[ cr_p.split()[0]]} ")] = locations if locations is not None else []
+            warnings_PC[cr_p.replace(" ", f" {criteria_dic[ cr_p.split()[0]]} ")] = locations if locations else []
     
     return errors_PC, warnings_PC
 
@@ -121,7 +121,7 @@ def getElementLocationPC(driver, elem):
         elem.find_element(by=By.XPATH, value="../td/a[@aria-label='Practice found']").click()
         elements = driver.find_elements(by=By.XPATH, value="//table/tr[4]/td/span")
         for element in elements:
-            locations.append(element.text.replace(" > ", "/").replace(":nth-child", "").replace("(", "[").replace(")", "]"))        
+            locations.append(f'/{element.text.replace(" > ", "/").replace(":nth-child", "").replace("(", "[").replace(")", "]")}')
         driver.back()
     return locations
 
@@ -138,3 +138,4 @@ if __name__ == "__main__":
 
     e_AM, w_AM = accessMonitorAnalisis(driver, address)
 
+    print(e_AC, lp_AC, pp_AC, e_AM, w_AM)
