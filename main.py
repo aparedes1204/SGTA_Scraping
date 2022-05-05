@@ -55,9 +55,9 @@ def aCheckerAnalisis(driver, address):
     for i in errors:
         if i.find_element(by=By.XPATH, value="./preceding::h4[1]").text != "":
             if i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2] in errors_AC:
-                errors_AC[i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2]].append(i.find_element(by=By.TAG_NAME, value="em").text)
+                errors_AC[i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2]].append(i.find_element(by=By.TAG_NAME, value="code").text)
             else:
-                errors_AC[i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2]] = [i.find_element(by=By.TAG_NAME, value="em").text]
+                errors_AC[i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2]] = [i.find_element(by=By.TAG_NAME, value="code").text]
 
     driver.find_element(by=By.ID,value="AC_menu_likely_problems").click()
     likely_problems = driver.find_element(by=By.ID,value="AC_likely_problems").find_elements(by=By.TAG_NAME,value="table")
@@ -66,9 +66,9 @@ def aCheckerAnalisis(driver, address):
     for i in likely_problems:
         if i.find_element(by=By.XPATH, value="./preceding::h4[1]").text != "":
             if i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2] in likely_problems_AC:
-                likely_problems_AC[i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2]].append(i.find_element(by=By.TAG_NAME, value="em").text)
+                likely_problems_AC[i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2]].append(i.find_element(by=By.TAG_NAME, value="code").text)
             else:
-                likely_problems_AC[i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2]] = [i.find_element(by=By.TAG_NAME, value="em").text]
+                likely_problems_AC[i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2]] = [i.find_element(by=By.TAG_NAME, value="code").text]
 
     driver.find_element(by=By.ID,value="AC_menu_potential_problems").click()
     potential_problems = driver.find_element(by=By.ID,value="AC_potential_problems").find_elements(by=By.TAG_NAME,value="table")
@@ -77,9 +77,9 @@ def aCheckerAnalisis(driver, address):
     for i in potential_problems:
         if i.find_element(by=By.XPATH, value="./preceding::h4[1]").text != "":
             if i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2] in potential_problems_AC:
-                potential_problems_AC[i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2]].append(i.find_element(by=By.TAG_NAME, value="em").text)
+                potential_problems_AC[i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2]].append(i.find_element(by=By.TAG_NAME, value="code").text)
             else:
-                potential_problems_AC[i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2]] = [i.find_element(by=By.TAG_NAME, value="em").text]
+                potential_problems_AC[i.find_element(by=By.XPATH, value="./preceding::h4[1]").text.split(' ',2)[2]] = [i.find_element(by=By.TAG_NAME, value="code").text]
 
     return errors_AC, likely_problems_AC, potential_problems_AC
 
@@ -120,9 +120,9 @@ def getElementLocationPC(driver, elem):
     locations = []
     if "HTML error" not in elem.find_element(by=By.XPATH, value="..").find_element(by=By.CLASS_NAME, value="test_description").text:
         elem.find_element(by=By.XPATH, value="../td/a[@aria-label='Practice found']").click()
-        elements = driver.find_elements(by=By.XPATH, value="//table/tr[4]/td/span")
+        elements = driver.find_elements(by=By.XPATH, value="//table/tr[2]/td/code")
         for element in elements:
-            locations.append(f'/{element.text.replace(" > ", "/").replace(":nth-child", "").replace("(", "[").replace(")", "]")}')
+            locations.append(element.text)
         driver.back()
     return locations
 
@@ -135,7 +135,7 @@ if __name__ == "__main__":
 
     # updateCriteriaDict(driver)
 
-    #address = setSiteToAnalize()
+    # address = setSiteToAnalize()
 
     e_AC, lp_AC, pp_AC = aCheckerAnalisis(driver, address)
 
