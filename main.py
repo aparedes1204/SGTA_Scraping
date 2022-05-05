@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import sys
 
 aChecker = "https://achecker.achecks.ca/checker/index.php"
 accessMonitor = "https://accessmonitor.acessibilidade.gov.pt/"
@@ -128,13 +129,22 @@ def getElementLocationPC(driver, elem):
 
 if __name__ == "__main__":
 
+    address = sys.argv[1]
+
     driver = configDriver()
 
     # updateCriteriaDict(driver)
 
-    address = setSiteToAnalize()
+    #address = setSiteToAnalize()
 
     e_AC, lp_AC, pp_AC = aCheckerAnalisis(driver, address)
 
     e_AM, w_AM = accessMonitorAnalisis(driver, address)
 
+    print(e_AC)
+    print(lp_AC)
+    print(pp_AC)
+    print(e_AM)
+    print(w_AM)
+
+    sys.stdout.flush()
